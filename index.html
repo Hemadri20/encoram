@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "encoramonline-e3c62.firebaseapp.com",
+    projectId: "encoramonline-e3c62",
+    storageBucket: "encoramonline-e3c62.appspot.com",
+    messagingSenderId: "YOUR_ID",
+    appId: "YOUR_APP_ID"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ENCORAM // SECURE NODE</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --amber: #ffcc00;
@@ -17,12 +34,13 @@
             background-color: var(--bg);
             color: #d1d5db;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
+            margin: 0;
         }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .syncopate { font-family: 'Syncopate', sans-serif; }
         
-        /* Noise Overlay */
+        /* Background Effects */
         body::before {
             content: "";
             position: fixed;
@@ -33,15 +51,6 @@
             z-index: 9999;
         }
 
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--amber); }
-
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
-        }
         .scanline {
             width: 100%;
             height: 100px;
@@ -51,53 +60,123 @@
             pointer-events: none;
             animation: scanline 8s linear infinite;
         }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
 
+        /* Glitch Animation */
         .glitch-text {
             position: relative;
-            display: inline-block;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
         }
-        .glitch-text::before, .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.8;
-        }
-        .glitch-text::before { color: #0ff; z-index: -1; animation: glitch-1 2s infinite linear alternate-reverse; }
-        .glitch-text::after { color: #f0f; z-index: -2; animation: glitch-2 2s infinite linear alternate-reverse; }
-
-        @keyframes glitch-1 {
-            0% { transform: translate(1px, 1px); }
-            20% { transform: translate(-1px, -1px); }
-            40% { transform: translate(1px, -1px); }
-            60% { transform: translate(-1px, 1px); }
-            80% { transform: translate(1px, 1px); }
-            100% { transform: translate(-1px, -1px); }
-        }
-        @keyframes glitch-2 {
-            0% { transform: translate(-1px, -1px); }
-            20% { transform: translate(1px, 1px); }
-            40% { transform: translate(-1px, 1px); }
-            60% { transform: translate(1px, -1px); }
-            80% { transform: translate(-1px, -1px); }
-            100% { transform: translate(1px, 1px); }
+        
+        .border-glow {
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.1), inset 0 0 20px rgba(255, 204, 0, 0.05);
         }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "crypto-js": "https://esm.sh/crypto-js@^4.2.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
-    "firebase/": "https://esm.sh/firebase@^12.7.0/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
+
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
+      }
+    }
+    </script>
 </head>
 <body>
+    <div class="scanline"></div>
     <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
+
+    <script type="module">
+        import React, { useState, useEffect } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { initializeApp } from 'firebase/app';
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrGHhwS3v2naFBfZnTZqPWcogG-B6wngg",
+            authDomain: "encoramonline-e3c62.firebaseapp.com",
+            projectId: "encoramonline-e3c62",
+            storageBucket: "encoramonline-e3c62.firebasestorage.app",
+            messagingSenderId: "974833839960",
+            appId: "1:974833839960:web:0cb0b0da1fa88e0dc3ff2d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        const App = () => {
+            const [bootLevel, setBootLevel] = useState(0);
+            const [isOnline, setIsOnline] = useState(false);
+
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setBootLevel(prev => {
+                        if (prev >= 100) {
+                            clearInterval(interval);
+                            setIsOnline(true);
+                            return 100;
+                        }
+                        return prev + 2;
+                    });
+                }, 30);
+                return () => clearInterval(interval);
+            }, []);
+
+            return (
+                <div className="flex flex-col items-center justify-center min-h-screen p-6 relative z-10">
+                    <div className="max-w-2xl w-full border border-amber-500/20 bg-black/60 p-8 border-glow backdrop-blur-sm">
+                        <div className="flex justify-between items-center mb-12 border-b border-amber-500/10 pb-4">
+                            <span className="mono text-[10px] text-amber-500/50 uppercase tracking-[0.3em]">System.Status: {isOnline ? 'Online' : 'Booting'}</span>
+                            <span className="mono text-[10px] text-amber-500/50 uppercase tracking-[0.3em]">Node: 0cb0b0da</span>
+                        </div>
+
+                        <div className="text-center">
+                            <h1 className="syncopate text-amber-400 text-3xl md:text-5xl tracking-[0.2em] mb-4 glitch-text">
+                                ENCORAM
+                            </h1>
+                            <p className="mono text-amber-500/40 text-[10px] tracking-widest uppercase mb-8">
+                                Secure Distributed Intelligence Network
+                            </p>
+                            
+                            <div className="w-full bg-amber-950/20 h-[2px] mb-2 overflow-hidden">
+                                <div 
+                                    className="bg-amber-500 h-full transition-all duration-300 shadow-[0_0_10px_#ffcc00]" 
+                                    style={{ width: `${bootLevel}%` }}
+                                ></div>
+                            </div>
+                            <div className="flex justify-between mono text-[9px] text-amber-500/30">
+                                <span>PROTOCOL_INIT</span>
+                                <span>{bootLevel}%</span>
+                            </div>
+                        </div>
+
+                        {isOnline && (
+                            <div className="mt-12 grid grid-cols-2 gap-4 animate-in fade-in duration-1000">
+                                <div className="border border-amber-500/10 p-4 bg-amber-500/5">
+                                    <div className="text-[10px] mono text-amber-500/40 mb-1">FIREBASE_CONN</div>
+                                    <div className="text-xs mono text-amber-400">ESTABLISHED</div>
+                                </div>
+                                <div className="border border-amber-500/10 p-4 bg-amber-500/5">
+                                    <div className="text-[10px] mono text-amber-500/40 mb-1">ENCRYPTION</div>
+                                    <div className="text-xs mono text-amber-400">ACTIVE_AES_256</div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    
+                    <footer className="fixed bottom-8 mono text-[10px] text-amber-500/20 tracking-tighter">
+                        © 2025 ENCORAM // SECURE ACCESS ONLY
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
