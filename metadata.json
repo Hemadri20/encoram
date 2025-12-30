@@ -1,0 +1,8 @@
+
+{
+  "name": "ENCORAM // SECURE NODE",
+  "description": "A high-security cryptographic localized node for zero-knowledge data fragmentation, neural sketching, and AI-assisted intelligence analysis.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
