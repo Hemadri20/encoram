@@ -1,89 +1,197 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCORAM // SECURE NODE</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.7.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.7.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      // 2. Your Web App's Firebase Configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCLPruUE99TIuv9_j9Lsr_ZFNgZ5EtlagY",
+        authDomain: "encoramonline-e3c62.firebaseapp.com",
+        projectId: "encoramonline-e3c62",
+        storageBucket: "encoramonline-e3c62.firebasestorage.app",
+        messagingSenderId: "974833839960",
+        appId: "1:974833839960:web:0cb0b0da1fa88e0dc3ff2d",
+        measurementId: "G-V1KN88M9H7"
+      };
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
+      // 3. Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      
+      console.log("ENCORAM // Firebase System Initialized");
     </script>
-  </body>
+</head>
+<body>
+    </body>
+</html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCORAM // SECURE NODE</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --amber: #ffcc00;
+            --amber-dim: rgba(255, 204, 0, 0.3);
+            --bg: #020205;
+        }
+        * { cursor: crosshair !important; }
+        body {
+            background-color: var(--bg);
+            color: #d1d5db;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            margin: 0;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .syncopate { font-family: 'Syncopate', sans-serif; }
+        
+        /* Background Effects */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 100;
+            background: linear-gradient(0deg, transparent 0%, rgba(255, 204, 0, 0.03) 50%, transparent 100%);
+            position: fixed;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* Glitch Animation */
+        .glitch-text {
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
+        .border-glow {
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.1), inset 0 0 20px rgba(255, 204, 0, 0.05);
+        }
+    </style>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="scanline"></div>
+    <div id="root"></div>
+
+    <script type="module">
+        import React, { useState, useEffect } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { initializeApp } from 'firebase/app';
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrGHhwS3v2naFBfZnTZqPWcogG-B6wngg",
+            authDomain: "encoramonline-e3c62.firebaseapp.com",
+            projectId: "encoramonline-e3c62",
+            storageBucket: "encoramonline-e3c62.firebasestorage.app",
+            messagingSenderId: "974833839960",
+            appId: "1:974833839960:web:0cb0b0da1fa88e0dc3ff2d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        const App = () => {
+            const [bootLevel, setBootLevel] = useState(0);
+            const [isOnline, setIsOnline] = useState(false);
+
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setBootLevel(prev => {
+                        if (prev >= 100) {
+                            clearInterval(interval);
+                            setIsOnline(true);
+                            return 100;
+                        }
+                        return prev + 2;
+                    });
+                }, 30);
+                return () => clearInterval(interval);
+            }, []);
+
+            return (
+                <div className="flex flex-col items-center justify-center min-h-screen p-6 relative z-10">
+                    <div className="max-w-2xl w-full border border-amber-500/20 bg-black/60 p-8 border-glow backdrop-blur-sm">
+                        <div className="flex justify-between items-center mb-12 border-b border-amber-500/10 pb-4">
+                            <span className="mono text-[10px] text-amber-500/50 uppercase tracking-[0.3em]">System.Status: {isOnline ? 'Online' : 'Booting'}</span>
+                            <span className="mono text-[10px] text-amber-500/50 uppercase tracking-[0.3em]">Node: 0cb0b0da</span>
+                        </div>
+
+                        <div className="text-center">
+                            <h1 className="syncopate text-amber-400 text-3xl md:text-5xl tracking-[0.2em] mb-4 glitch-text">
+                                ENCORAM
+                            </h1>
+                            <p className="mono text-amber-500/40 text-[10px] tracking-widest uppercase mb-8">
+                                Secure Distributed Intelligence Network
+                            </p>
+                            
+                            <div className="w-full bg-amber-950/20 h-[2px] mb-2 overflow-hidden">
+                                <div 
+                                    className="bg-amber-500 h-full transition-all duration-300 shadow-[0_0_10px_#ffcc00]" 
+                                    style={{ width: `${bootLevel}%` }}
+                                ></div>
+                            </div>
+                            <div className="flex justify-between mono text-[9px] text-amber-500/30">
+                                <span>PROTOCOL_INIT</span>
+                                <span>{bootLevel}%</span>
+                            </div>
+                        </div>
+
+                        {isOnline && (
+                            <div className="mt-12 grid grid-cols-2 gap-4 animate-in fade-in duration-1000">
+                                <div className="border border-amber-500/10 p-4 bg-amber-500/5">
+                                    <div className="text-[10px] mono text-amber-500/40 mb-1">FIREBASE_CONN</div>
+                                    <div className="text-xs mono text-amber-400">ESTABLISHED</div>
+                                </div>
+                                <div className="border border-amber-500/10 p-4 bg-amber-500/5">
+                                    <div className="text-[10px] mono text-amber-500/40 mb-1">ENCRYPTION</div>
+                                    <div className="text-xs mono text-amber-400">ACTIVE_AES_256</div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    
+                    <footer className="fixed bottom-8 mono text-[10px] text-amber-500/20 tracking-tighter">
+                        © 2025 ENCORAM // SECURE ACCESS ONLY
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
 </html>
